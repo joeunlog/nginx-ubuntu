@@ -1,0 +1,12 @@
+---
+# ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wpconfig
+  namespace: spspace
+data:
+  host: mysql:3306
+  dbname: wpdb
+  dbuser: wpuser
+  dbpasswd: P@ssw0rd

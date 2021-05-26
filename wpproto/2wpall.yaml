@@ -1,0 +1,101 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp-dp
+  labels:
+    app: wp  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wp
+  template:
+    metadata:
+      labels:
+        app: wp
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress
+        resources:
+          requests:
+            cpu: "5m"
+            memory: "10M"
+        env:
+        - name: DB_HOST
+          value: sqlsvc
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbpass
+              key: password
+        ports:
+        - containerPort: 80
+          name: wordpress
+        volumeMounts:
+          - mountPath: /var/www/html
+            name: wp-content
+      volumes:
+      - name: wp-content
+        persistentVolumeClaim:
+          claimName: wp-pvc
+---
+# PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ebs-sc
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: wpsvc
+spec:
+  type: NodePort
+  selector:
+    app: wp
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+---
+# Ingress
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: wp-ing
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: wpsvc
+              servicePort: 80
+---
+# HPA
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: wp-hpa
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: wp-dp
+  targetCPUUtilizationPercentage: 70              

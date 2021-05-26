@@ -1,0 +1,64 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-dp
+  labels:
+    app: mysql 
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.6
+        resources:
+          requests:
+            cpu: "5m"
+            memory: "10M"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbpass
+              key: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: db-content
+      volumes:
+      - name: db-content
+        persistentVolumeClaim:
+          claimName: sql-pvc        
+---
+# PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ebs-sc
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlsvc
+spec:
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
