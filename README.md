@@ -193,6 +193,19 @@ kubectl get po -n amazon-cloudwatch
 
 ![hi](/img/dockerhub_connected.png)
 
+## Create Dockerfile
+
+```
+FROM ubuntu:focal
+RUN apt-get update
+RUN apt-get install -y nginx
+WORKDIR /etc/nginx
+CMD ["nginx","-g","daemon off;"]
+EXPOSE 80
+```
+
+## Upload Dockerfile to github
+
 ## Create dockerhub repository and set automated build
 
 1. Create repository
@@ -216,14 +229,20 @@ kubectl get po -n amazon-cloudwatch
 docker run -itd -p 8080:80 [username]/[repository name]
 ```
 
-## Create Dockerfile
 
-```
-FROM ubuntu:focal
-RUN apt-get update
-RUN apt-get install -y nginx
-WORKDIR /etc/nginx
-CMD ["nginx","-g","daemon off;"]
-EXPOSE 80
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
