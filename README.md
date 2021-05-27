@@ -2,7 +2,7 @@
 ---
 # Create eks cluster by using ClusterConfig file
 
-> setup directory
+> github **setup** directory
 
 ## ekscreate.yaml
 
@@ -61,7 +61,7 @@ eksctl create iamserviceaccount -f ekscreate.yaml  --approve --override-existing
 
 ### aws-load-balancer-contoller
 
-> https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+> [Refer to the docs](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
 
 ```sh
 # apply target group binding custom resource
@@ -86,9 +86,16 @@ helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
 kubectl get deployment -n kube-system aws-load-balancer-controller
 ```
 
+> **Could not find webhook error while using load balancer**
+
+```sh
+# Since we don't use webhooks, we can solve it by deleting webhook configuration.
+kubectl delete validatingwebhookconfiguration aws-load-balancer-webhook
+```
+
 ### EBS CSI Driver
 
-> https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+> [Refer to the docs](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html)
 
 ```sh
 # add repo
@@ -108,7 +115,7 @@ helm upgrade -install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver \
 
 ### Metrics Server
 
-> https://docs.amazonaws.cn/en_us/eks/latest/userguide/metrics-server.html
+> [Refer to the docs](https://docs.amazonaws.cn/en_us/eks/latest/userguide/metrics-server.html)
 
 ```sh
 # Deploy the metrics server
@@ -120,7 +127,7 @@ kubectl get deployment metrics-server -n kube-system
 
 ### Cluster Autoscaler
 
-> https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
+> [Refer to the docs](https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html)
 
 ```sh
 # get cluster-autoscaler-autodiscover.yaml file
@@ -142,7 +149,7 @@ kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 ### CloudWatch Container Insights
 
-> https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-EKS-quickstart.html
+> [Refer to the docs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-EKS-quickstart.html)
 
 ```sh
 # set variables
@@ -169,7 +176,16 @@ kubectl get po -n amazon-cloudwatch
 ---
 # Running nginx in ubuntu environment
 
-Dockerfile
+> github **root** directory
+
+## Link github and dockerhub
+
+![hi](/img/dockerhub_accountsetting.png)
+
+
+
+
+## Create Dockerfile
 
 ```
 FROM ubuntu:focal
@@ -179,3 +195,4 @@ WORKDIR /etc/nginx
 CMD ["nginx","-g","daemon off;"]
 EXPOSE 80
 ```
+
