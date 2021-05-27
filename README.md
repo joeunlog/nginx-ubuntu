@@ -206,7 +206,15 @@ kubectl get po -n amazon-cloudwatch
 
 ![hi](/img/autobuild_setting02.png)
 
+5. After checking the status, if additional build is needed, press the trigger.
+
 ![hi](/img/autobuild_setting03.png)
+
+6. Check if the build was successful.
+
+```sh
+docker run -itd -p 8080:80 [username]/[repository name]
+```
 
 ## Create Dockerfile
 
