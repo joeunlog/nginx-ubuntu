@@ -180,10 +180,33 @@ kubectl get po -n amazon-cloudwatch
 
 ## Link github and dockerhub
 
+*If you don't want to connect to an account, skip this step*  
+*You can connect to the repository only by 'configure automated builds' menu*
+
+1. Log in to dockerhub  
+2. Go to the account settings screen as shown in the figure below.
+
 ![hi](/img/dockerhub_accountsetting.png)
 
+3. Select github connect from the 'linked account' menu
+4. If connected properly, the following screen will be displayed.
 
+![hi](/img/dockerhub_connected.png)
 
+## Create dockerhub repository and set automated build
+
+1. Create repository
+2. Go to the build menu of the created repository
+3. Select the connected github and select organizaion, repository   
+   > *If you skipped the account linking step, select 'configure automated builds' menu*
+
+![hi](/img/autobuild_setting01.png)
+
+4. Complete the detailed settings created below and save.
+
+![hi](/img/autobuild_setting02.png)
+
+![hi](/img/autobuild_setting03.png)
 
 ## Create Dockerfile
 
