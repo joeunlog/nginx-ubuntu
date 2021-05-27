@@ -2,6 +2,8 @@
 ---
 # Create eks cluster by using ClusterConfig file
 
+> setup directory
+
 ## ekscreate.yaml
 
 metadata
@@ -59,6 +61,8 @@ eksctl create iamserviceaccount -f ekscreate.yaml  --approve --override-existing
 
 ### aws-load-balancer-contoller
 
+> https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
 ```sh
 # apply target group binding custom resource
 kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
@@ -84,6 +88,8 @@ kubectl get deployment -n kube-system aws-load-balancer-controller
 
 ### EBS CSI Driver
 
+> https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+
 ```sh
 # add repo
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
@@ -102,6 +108,8 @@ helm upgrade -install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver \
 
 ### Metrics Server
 
+> https://docs.amazonaws.cn/en_us/eks/latest/userguide/metrics-server.html
+
 ```sh
 # Deploy the metrics server
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
@@ -111,6 +119,8 @@ kubectl get deployment metrics-server -n kube-system
 ```
 
 ### Cluster Autoscaler
+
+> https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
 
 ```sh
 # get cluster-autoscaler-autodiscover.yaml file
@@ -132,6 +142,8 @@ kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
 ### CloudWatch Container Insights
 
+> https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-EKS-quickstart.html
+
 ```sh
 # set variables
 ClusterName=spcluster
@@ -141,7 +153,7 @@ FluentBitReadFromHead='Off'
 [[ ${FluentBitReadFromHead} = 'On' ]] && FluentBitReadFromTail='Off'|| FluentBitReadFromTail='On'
 [[ -z ${FluentBitHttpPort} ]] && FluentBitHttpServer='Off' || FluentBitHttpServer='On'
 
-# deploy (This command is one line.)
+# deploy
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluent-bit-quickstart.yaml | sed 's/{{cluster_name}}/'${ClusterName}'/;s/{{region_name}}/'${RegionName}'/;s/{{http_server_toggle}}/"'${FluentBitHttpServer}'"/;s/{{http_server_port}}/"'${FluentBitHttpPort}'"/;s/{{read_from_head}}/"'${FluentBitReadFromHead}'"/;s/{{read_from_tail}}/"'${FluentBitReadFromTail}'"/' | kubectl apply -f - 
 
 # verify
