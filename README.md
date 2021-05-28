@@ -1,9 +1,8 @@
-
----
 <p align="center">
-<h1>Wordpress - MySQL</h1>  
+  <img src="img/subject01.png">
 </p>
 
+---
 
 # Create eks cluster by using ClusterConfig file
 
@@ -180,10 +179,11 @@ $ kubectl get po -n amazon-cloudwatch
 
 <br><br><br><br><br>
 
----
 <p align="center">
-<h1>CI/CD, Monitoring, Logging</h1>  
+  <img src="img/subject02.png">
 </p>
+
+---
 
 # CI - Github, Dockerhub automated build
 
