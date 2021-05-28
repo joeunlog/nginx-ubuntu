@@ -1,8 +1,10 @@
 
 ---
-<p style="font-size:40px;">Wordpress - MySQL</p>  
+<p align="center">
+<h1>Wordpress - MySQL</h1>  
+</p>
 
----
+
 # Create eks cluster by using ClusterConfig file
 
 > github **setup** directory
@@ -175,10 +177,14 @@ $ kubectl get po -n amazon-cloudwatch
 
 
 
----
-<p style="font-size:40px;">CI/CD, Monitoring, Logging</p>  
+
+<br><br><br><br><br>
 
 ---
+<p align="center">
+<h1>CI/CD, Monitoring, Logging</h1>  
+</p>
+
 # CI - Github, Dockerhub automated build
 
 > Running nginx in ubuntu environment
