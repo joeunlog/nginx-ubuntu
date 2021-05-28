@@ -1,6 +1,6 @@
 
 ---
-<span style="font-size:3.6rem">Wordpress - MySQL</span>  
+<span style="font-size:40px">Wordpress - MySQL</span>  
 
 ---
 # Create eks cluster by using ClusterConfig file
@@ -176,7 +176,7 @@ $ kubectl get po -n amazon-cloudwatch
 
 
 ---
-<span style="font-size:3.6rem">CI/CD, Monitoring, Logging</span>  
+<span style="font-size:40px">CI/CD, Monitoring, Logging</span>  
 
 ---
 # CI - Github, Dockerhub automated build
