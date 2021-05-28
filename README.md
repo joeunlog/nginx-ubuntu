@@ -353,7 +353,7 @@ At chrome secret mode
 ![hi](/img/access_argocd02.png)
 
 2. Login ArgoCD  
-   ID : admin
+   ID : admin  
    PW : \<Password found with argocd secret>
 
 ![hi](/img/login_argocd.png)
@@ -374,8 +374,7 @@ At chrome secret mode
   - Repository URL : your github repository url  
     *You can find it here.*  
     ![hi](/img/argocd_create_app04.png)
-  - Path : <
-Directory where you put the deploy file>  
+  - Path : \<Directory where you put the deploy file in github repository>  
     *In my case,* deploy
 - DESTINATION
   - Cluster URL : \<cluster with argocd>  
@@ -458,7 +457,7 @@ Filtering the log group by cluster name and checking the log group of my cluster
 
 ![hi](/img/logging01.png)
 
-If you click one log group, you can check the log stream as follows.
+If you click the log group, you can check the log stream as follows.
 
 ![hi](/img/logging02.png)
 
