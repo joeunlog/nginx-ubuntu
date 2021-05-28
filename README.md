@@ -1,3 +1,8 @@
+> wordpress - mysql은 미완성. eks cluster 구성과 addon 설치에 대한 것만 기재하였음  
+> 아래쪽에 CI/CD, Monitoring, Logging에 대한 것은 완료
+
+<br><br>
+
 <p align="center">
   <img src="img/subject01.png">
 </p>
