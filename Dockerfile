@@ -1,6 +1,3 @@
-FROM ubuntu:focal
-RUN apt-get update
-RUN apt-get install -y nginx
-WORKDIR /etc/nginx
-CMD ["nginx","-g","daemon off;"]
-EXPOSE 80
+FROM nginx
+RUN mkdir /app/eunvit
+RUN echo "<h1>eunvit</h1>" > /app/eunvit/test.html
